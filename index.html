@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBO.com - Herramientas para el emprendedor cubano</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="https://img.icons8.com/color/48/000000/cuba.png" type="image/x-icon">
+    <style>
+        :root {
+            --primary: #003366; /* Azul oscuro */
+            --secondary: #cc0000; /* Rojo cubano */
+            --accent: #ffcc00; /* Amarillo cubano */
+            --light: #f5f5f5;
+            --dark: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), #001a33);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo-text span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1566438480900-0609be27a4be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1490&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-top: 68px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #990000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* About Section */
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Reality Section */
+        .reality {
+            background-color: #f1f1f1;
+        }
+        
+        .reality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .reality-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .reality-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .reality-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .reality-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        /* Solutions Section */
+        .solutions {
+            background: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+        
+        .solutions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 51, 102, 0.8);
+        }
+        
+        .solutions-content {
+            position: relative;
+            z-index: 1;
+            padding: 5rem 0;
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .solution-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .solution-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .solution-item i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .tool-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .tool-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .tool-card:hover .tool-image img {
+            transform: scale(1.1);
+        }
+        
+        .tool-content {
+            padding: 1.5rem;
+        }
+        
+        .tool-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="https://img.icons8.com/color/48/000000/cuba.png" alt="Logo CBO">
+                    <div class="logo-text">CBO<span>.com</span></div>
+                </div>
+                <div class="nav-links">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#realidad">Realidad Cubana</a>
+                    <a href="#soluciones">Nuestras Soluciones</a>
+                    <a href="#herramientas">Herramientas</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Superando desafíos, creando oportunidades</h1>
+                <p>En CBO.com entendemos la realidad del emprendedor cubano. Por eso desarrollamos herramientas prácticas para ayudarte a navegar la compleja economía diaria y hacer crecer tu negocio.</p>
+                <a href="#herramientas" class="btn">Explora Nuestras Herramientas</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestra Visión</h2>
+                <p>Creemos en el poder transformador del emprendimiento cubano, incluso en las circunstancias más desafiantes.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Soluciones hechas a la medida de Cuba</h3>
+                    <p>En un contexto de inflación, escasez y doble moneda, los emprendedores cubanos necesitan herramientas diferentes. CBO.com nació para llenar ese vacío.</p>
+                    <p>Nuestras soluciones toman en cuenta la realidad de:</p>
+                    <ul style="margin-left: 20px; margin-bottom: 1.5rem;">
+                        <li>Limitaciones de acceso a divisas</li>
+                        <li>Problemas de conectividad a internet</li>
+                        <li>Dificultades logísticas y de suministros</li>
+                        <li>Complejidades del sistema financiero cubano</li>
+                    </ul>
+                    <p>No prometemos soluciones mágicas, sino herramientas prácticas para sacar el máximo provecho de los recursos disponibles.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Emprendedor cubano trabajando">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reality Section -->
+    <section class="section reality" id="realidad">
+        <div class="container">
+            <div class="section-title">
+                <h2>La Realidad que Enfrentamos</h2>
+                <p>Entendemos los desafíos diarios del emprendedor cubano porque los vivimos nosotros también.</p>
+            </div>
+            <div class="reality-grid">
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Dualidad Monetaria</h3>
+                    <p>Gestionar un negocio con dos monedas, restricciones cambiarias y alta inflación requiere herramientas financieras especializadas.</p>
+                </div>
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>Conectividad Limitada</h3>
+                    <p>Internet lento, caro y poco confiable exige soluciones que funcionen offline y se sincronicen cuando haya conexión.</p>
+                </div>
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-truck-moving"></i>
+                    </div>
+                    <h3>Logística Compleja</h3>
+                    <p>La escasez de transporte y combustibles hace que la distribución sea uno de los mayores retos para cualquier negocio.</p>
+                </div>
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3>Restricciones Internacionales</h3>
+                    <p>Las limitaciones para comerciar con el exterior obligan a buscar alternativas creativas para importar/exportar.</p>
+                </div>
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Fallas Eléctricas</h3>
+                    <p>Los frecuentes apagones requieren sistemas que puedan funcionar sin energía constante y proteger los datos.</p>
+                </div>
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Fuga de Talentos</h3>
+                    <p>La migración masiva dificulta mantener equipos estables, exigiendo sistemas de conocimiento compartido.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions" id="soluciones">
+        <div class="container">
+            <div class="solutions-content">
+                <div class="section-title">
+                    <h2 style="color: white;">Nuestro Enfoque</h2>
+                    <p style="color: #eee;">Soluciones prácticas para problemas reales</p>
+                </div>
+                <div class="solutions-grid">
+                    <div class="solution-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Aplicaciones Offline</h3>
+                        <p>Funcionalidad completa sin necesidad de conexión constante a internet.</p>
+                    </div>
+                    <div class="solution-item">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>Gestión de Divisas</h3>
+                        <p>Sistemas para manejar múltiples monedas y conversiones en tiempo real.</p>
+                    </div>
+                    <div class="solution-item">
+                        <i class="fas fa-network-wired"></i>
+                        <h3>Redes Alternativas</h3>
+                        <p>Plataformas que funcionan a través de redes locales y soluciones comunitarias.</p>
+                    </div>
+                    <div class="solution-item">
+                        <i class="fas fa-hands-helping"></i>
+                        <h3>Economía Colaborativa</h3>
+                        <p>Herramientas para compartir recursos entre emprendedores y optimizar costos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="section" id="herramientas">
+        <div class="container">
+            <div class="section-title">
+                <h2>Herramientas para el Día a Día</h2>
+                <p>Desarrolladas específicamente para el contexto cubano actual</p>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1511&q=80" alt="Gestión Financiera">
+                    </div>
+                    <div class="tool-content">
+                        <h3>Finanzas CBO</h3>
+                        <p>Sistema de contabilidad y gestión financiera adaptado a la dualidad monetaria y alta inflación.</p>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Suministros">
+                    </div>
+                    <div class="tool-content">
+                        <h3>Suministro Local</h3>
+                        <p>Plataforma para conectar productores locales con emprendedores que necesitan materias primas.</p>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Comercio Exterior">
+                    </div>
+                    <div class="tool-content">
+                        <h3>ConectaCBO</h3>
+                        <p>Red segura para establecer contactos comerciales internacionales a pesar de las restricciones.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
